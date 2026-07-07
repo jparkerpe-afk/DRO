@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cheryl Parker for Del Rey Oaks City Council</title>
+<meta name="description" content="Engineering a path forward for Del Rey Oaks. Cheryl Parker — licensed Professional Engineer, DRO resident — is running for City Council.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#203864;--navy-dk:#16264a;--rust:#8B371A;--rust-lt:#A6431F;--cream:#F7ECE8;}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Open Sans',Arial,sans-serif;color:#333;line-height:1.7;font-size:16.5px}
+img{max-width:100%;display:block}
+h1,h2,h3,.btn{font-family:'Montserrat',Arial,sans-serif}
+a{color:var(--rust)}
+
+/* nav */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.96);box-shadow:0 1px 8px rgba(0,0,0,.12);display:flex;align-items:center;justify-content:space-between;padding:12px 4%}
+.nav .brand{font-family:'Montserrat';font-weight:800;color:var(--navy);text-decoration:none;font-size:17px;letter-spacing:.03em}
+.nav .brand span{color:var(--rust)}
+.nav ul{display:flex;gap:26px;list-style:none}
+.nav ul a{font-family:'Montserrat';font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--navy);text-decoration:none}
+.nav ul a:hover{color:var(--rust)}
+@media(max-width:700px){.nav ul{gap:14px}.nav ul li:nth-child(n+4){display:none}.nav .brand{font-size:14px}}
+
+/* hero */
+.hero{display:flex;min-height:clamp(480px, min(92vh, 62vw), 900px);margin-top:54px}
+.hero-left{background:var(--navy);width:51%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:60px 5%}
+.hero-left h1{color:#fff;font-weight:800;line-height:1.15;font-size:clamp(34px,4.5vw,58px)}
+.hero-left h1 small{display:block;font-size:.72em;font-weight:700}
+.hero-left .btn{margin-top:42px}
+.hero-right{width:49%;background:url('assets/img/hero.jpg') 28% 30%/cover no-repeat;box-shadow:31px 0 20px -4px var(--navy) inset}
+.btn{display:inline-block;background:var(--rust);color:#fff;text-decoration:none;font-weight:700;font-size:22px;padding:16px 40px;letter-spacing:.02em;transition:background .2s}
+.btn:hover{background:var(--rust-lt)}
+@media(max-width:800px){.hero{flex-direction:column;min-height:0}.hero-left,.hero-right{width:100%}.hero-left{padding:70px 6%}.hero-right{height:52vw;box-shadow:0 31px 20px -4px var(--navy) inset}}
+
+/* sections */
+.wrap{max-width:1050px;margin:0 auto;padding:0 22px}
+.intro{padding:70px 0 55px;text-align:center}
+.intro .name-line{font-size:clamp(22px,3vw,30px);color:var(--rust);font-weight:600;font-family:'Montserrat';line-height:1.4}
+.intro p.body{margin:26px auto 0;max-width:820px;text-align:left}
+.sep{width:70px;height:4px;background:var(--rust);margin:48px auto 0}
+h2.big{font-weight:800;color:var(--navy);text-align:center;font-size:clamp(34px,5vw,54px);line-height:1.1}
+.kicker{text-align:center;font-weight:700;color:var(--rust);margin-top:12px;letter-spacing:.02em}
+
+/* meet cheryl rows */
+.about{padding:70px 0 20px}
+.rowx{display:flex;gap:44px;align-items:center;margin-top:56px}
+.rowx:nth-child(even){flex-direction:row-reverse}
+.rowx .ph{flex:0 0 38%}
+.rowx .ph img{width:100%}
+.rowx h3{color:var(--navy);font-size:24px;font-weight:800;margin-bottom:12px}
+.rowx p{margin-bottom:12px}
+.quote{border-left:4px solid var(--rust);background:var(--cream);padding:14px 18px;font-style:italic;color:var(--navy)}
+@media(max-width:800px){.rowx,.rowx:nth-child(even){flex-direction:column;gap:22px}.rowx .ph{flex:auto;width:100%}}
+
+/* issues checkerboard */
+.issues{padding-top:80px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);margin-top:52px}
+.cell{padding:44px 26px 38px;color:#fff;text-align:center}
+.cell.a{background:var(--navy)}.cell.b{background:var(--rust)}
+.cell .ico{font-size:34px;line-height:1}
+.cell h3{font-size:20px;font-weight:800;margin:14px 0 10px}
+.cell p{font-size:14.5px;line-height:1.6}
+.cell details{margin-top:14px;text-align:left}
+.cell summary{cursor:pointer;font-family:'Montserrat';font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.1em;text-align:center;opacity:.9}
+.cell details[open] summary{margin-bottom:10px}
+.cell details p{margin-bottom:10px}
+.cell ul{padding-left:18px;font-size:14px}
+.cell li{margin-bottom:6px}
+@media(max-width:1000px){.grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.grid{grid-template-columns:1fr}}
+
+/* flag divider bands: clip-path window over a fixed layer = stationary image the page scrolls past */
+.flagband{height:46vh;position:relative;clip-path:inset(0)}
+.flagband::before{content:"";position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:-1;background:url('assets/img/flags.jpg') center 48%/cover no-repeat}
+.flagband::after{content:"";position:absolute;inset:0;background:rgba(255,255,255,.28)}
+@media(max-width:800px){.flagband{height:34vh}}
+
+/* contact */
+.contact{background:var(--cream);padding:80px 0}
+.c-cols{display:flex;gap:50px;margin-top:44px}
+.c-info{flex:1}
+.c-info h3{color:var(--navy);font-size:22px;font-weight:800;margin-bottom:14px}
+.c-info p{margin-bottom:8px}
+.c-info strong{color:var(--navy)}
+.c-form{flex:1.3;background:#fff;padding:30px}
+.c-form label{display:block;font-weight:600;font-size:14px;margin:14px 0 4px;color:var(--navy)}
+.c-form input,.c-form textarea{width:100%;padding:11px 12px;border:1px solid #ccc;font-family:inherit;font-size:15px}
+.c-form textarea{min-height:110px;resize:vertical}
+.c-form button{margin-top:20px;width:100%;border:0;cursor:pointer}
+.msg{display:none;margin-top:14px;padding:12px;text-align:center;font-weight:600}
+.msg.ok{background:#e8f2e8;color:#1e5c1e}.msg.err{background:#fdecea;color:#a32d2d}
+@media(max-width:800px){.c-cols{flex-direction:column}}
+
+/* footer */
+footer{background:var(--navy-dk);color:rgba(255,255,255,.85);text-align:center;padding:44px 20px}
+footer .fbrand{font-family:'Montserrat';font-weight:800;color:#fff;font-size:20px}
+footer p{font-size:13.5px;margin-top:10px}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="brand" href="#top">CHERYL PARKER <span>· DEL REY OAKS</span></a>
+  <ul>
+    <li><a href="#meet">Meet Cheryl</a></li>
+    <li><a href="#issues">Issues</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<header class="hero" id="top">
+  <div class="hero-left">
+    <h1><small>Engineering a path forward for</small>Del Rey Oaks</h1>
+    <a class="btn" href="#contact">Get Involved</a>
+  </div>
+  <div class="hero-right" role="img" aria-label="Cheryl Parker in Del Rey Oaks"></div>
+</header>
+
+<section class="intro wrap">
+  <p class="name-line">My name is Cheryl Parker, and I want to be your next city councilmember</p>
+  <p class="body">Cheryl Parker has spent her career in public service, solving real infrastructure problems as a licensed Professional Civil Engineer. She knows how to ask the right questions, track the right numbers, and hold contractors accountable. Now she's bringing that same commitment to Del Rey Oaks, a city she calls home and wants to see thrive for generations to come.</p>
+  <div class="sep"></div>
+</section>
+
+<section class="about wrap" id="meet">
+  <h2 class="big">Meet Cheryl</h2>
+  <p class="kicker">Putting knowledge &amp; experience to work for the city</p>
+
+  <div class="rowx">
+    <div class="ph"><img src="assets/img/roots.jpg" alt="Cheryl Parker in Del Rey Oaks"></div>
+    <div>
+      <h3>Putting Down Roots in Del Rey Oaks</h3>
+      <p>Cheryl has called Del Rey Oaks home since 2020. Like many residents, she came here looking for a place to put down roots, and she found it. She and her husband have spent the past five years renovating their home in DRO and weaving themselves into the fabric of this community.</p>
+      <p>She grew up in a small rural town, where she learned early what it means to rely on your neighbors and to show up for them in return. Those lessons stayed with her — as did her grandmother, an immigrant from England, who taught her firsthand about the dignity of elder care, the realities of living on a fixed income, and what it looks like when a community either catches you or doesn't.</p>
+    </div>
+  </div>
+
+  <div class="rowx">
+    <div class="ph"><img src="assets/img/path.jpg" alt="Cheryl Parker on a trail in Del Rey Oaks"></div>
+    <div>
+      <h3>A Career Built on Accountability</h3>
+      <p>Cheryl is a licensed Professional Engineer with a Master of Science in Civil and Environmental Engineering, graduating with distinction. She has worked as a transportation engineer, a private-sector consultant, a coal mining regulator, an environmental waste and drinking water engineer, and most recently as a Civil Engineer for the federal government and the Marina Coast Water District — working on the water supply and delivery infrastructure issues that matter most to Monterey Peninsula communities.</p>
+      <p>As a volunteer with Engineers Without Borders, she helped design and install a water pipeline for a rural village in Honduras — bringing a small community reliable water for the very first time.</p>
+    </div>
+  </div>
+
+  <div class="rowx">
+    <div class="ph"><img src="assets/img/juncture.jpg" alt="Cheryl Parker at the City of Del Rey Oaks sign"></div>
+    <div>
+      <h3>A Critical Juncture for Del Rey Oaks</h3>
+      <p>Del Rey Oaks is weighing major decisions on the development of its remaining land, working through serious infrastructure questions, and facing real financial pressure that could affect its future as an independent city. These aren't routine issues — they require careful analysis, technical judgment, and someone willing to ask hard questions before decisions are made.</p>
+      <div class="quote">"That's what she means when she talks about putting her knowledge and experience to work for the city: bringing real technical expertise to the table, at a time when Del Rey Oaks needs it most."</div>
+    </div>
+  </div>
+</section>
+
+<div class="flagband" role="img" aria-label="American and California flags"></div>
+
+<section class="issues" id="issues">
+  <h2 class="big">On The Issues</h2>
+  <p class="kicker wrap">Cheryl's platform is built on the values of the residents — open process, real expertise, and a seat at the table for every neighbor</p>
+
+  <div class="grid">
+    <div class="cell a">
+      <div class="ico">🏗️</div><h3>Fort Ord Lands</h3>
+      <p>Development that serves residents, present and future — with an open, competitive process and real public input before decisions are made.</p>
+      <details><summary>Read more</summary>
+        <p>Del Rey Oaks sits on the edge of one of the most significant land development opportunities on the Monterey Peninsula. How we develop former Fort Ord land will shape our city for generations — integrating the natural world into developed space, not paving over it.</p>
+        <ul><li>An open, competitive process for any major development project</li><li>A transparent public process for any action that affects the city</li><li>Prioritize development that serves residents, present and future</li></ul>
+      </details>
+    </div>
+    <div class="cell b">
+      <div class="ico">🔧</div><h3>Infrastructure</h3>
+      <p>15+ years as a licensed P.E. designing fixes delivered on time, within budget, and with minimal impact on residents.</p>
+      <details><summary>Read more</summary>
+        <p>Infrastructure problems happen everywhere — and they require knowledgeable, experienced people to solve them. A licensed civil engineer on the council changes the dynamic: I know what questions to ask, and I won't stop asking them.</p>
+        <ul><li>Transparent oversight on all public infrastructure projects</li><li>Clear public reporting when projects are planned and executed</li><li>Hold contractors to their commitments</li></ul>
+      </details>
+    </div>
+    <div class="cell a">
+      <div class="ico">📣</div><h3>Public Voice</h3>
+      <p>Every one of our 1,600 residents should feel their voice matters at city hall — before decisions are made, not after.</p>
+      <details><summary>Read more</summary>
+        <p>Real transparency means more than posting agendas: proactively sharing information, holding decisions open long enough for residents to respond, and treating public comment as input — not a formality. Cheryl also advocates restoring committees like Parks &amp; Recreation, Arts, and Public Works.</p>
+        <ul><li>Meaningful public comment before major decisions</li><li>Proactive communication on neighborhood projects</li><li>No closed-door development deals</li><li>Committee recommendations included in city decisions</li></ul>
+      </details>
+    </div>
+    <div class="cell b">
+      <div class="ico">✈️</div><h3>Airport Noise</h3>
+      <p>The last MRY noise study was 2008. The taxiway is being moved right now. Those two facts don't add up.</p>
+      <details><summary>Read more</summary>
+        <p>Flight patterns, aircraft types, and a major taxiway relocation have all changed since 2008. Residents deserve to know whether that study still reflects reality.</p>
+        <ul><li>Request an updated 14 CFR Part 150 Noise Exposure Map from MRY</li><li>Secure DRO representation in the noise abatement process</li><li>Establish a noise monitoring baseline in affected neighborhoods</li></ul>
+      </details>
+    </div>
+    <div class="cell b">
+      <div class="ico">🌱</div><h3>Garden Center</h3>
+      <p>A rare opportunity on prime city land. That decision belongs to residents — not whoever reaches the council first.</p>
+      <details><summary>Read more</summary>
+        <p>Cheryl supports a community-driven process to determine the best use of the former Garden Center property, with real public input before any commitments are made.</p>
+        <ul><li>Community input before any use decision</li><li>Evaluate uses that serve DRO residents directly</li><li>No commitments without a public hearing</li><li>Benefits for the whole community — not a convenient developer deal</li></ul>
+      </details>
+    </div>
+    <div class="cell a">
+      <div class="ico">🤝</div><h3>Community</h3>
+      <p>A city our size punches above its weight when we build strong regional relationships — and below it when we don't show up.</p>
+      <details><summary>Read more</summary>
+        <p>We share infrastructure, services, and challenges with our neighbors on the Monterey Peninsula. On council, Cheryl will actively build those relationships and make sure DRO has a voice in regional decisions.</p>
+        <ul><li>Active participation in regional planning bodies</li><li>Relationships with neighboring city councils</li><li>DRO represented wherever regional decisions are made</li></ul>
+      </details>
+    </div>
+    <div class="cell b">
+      <div class="ico">🛡️</div><h3>Public Safety</h3>
+      <p>Support for our Public Safety Officers — and the sidewalks, crossings, and lighting that keep every resident safe.</p>
+      <details><summary>Read more</summary>
+        <p>Public safety is about more than policing — it's whether every resident, regardless of age or ability, can move safely through their own city. Cheryl supports an approach built on strong relationships between residents and the people who serve them.</p>
+        <ul><li>Prioritize accessibility and safety improvements in city planning</li><li>Community relationships and mutual trust</li><li>Safety projects designed with input from the residents they serve</li></ul>
+      </details>
+    </div>
+    <div class="cell a">
+      <div class="ico">🌳</div><h3>Preservation</h3>
+      <p>Protecting the small-town character and green spaces we love — on purpose, not by luck — as the region grows around us.</p>
+      <details><summary>Read more</summary>
+        <p>Growth shouldn't come at the cost of what makes this city feel like home — a friendly, neighborly place close to the Frog Pond and the natural areas that surround us. That includes exploring a possible Frog Pond 2, a neighboring parcel that could become new accessible green space.</p>
+        <ul><li>Protect green space and natural areas as DRO grows</li><li>Development that respects the scale of existing neighborhoods</li><li>Explore new green spaces like Frog Pond 2</li><li>Preserve parts of the city that don't need development</li></ul>
+      </details>
+    </div>
+  </div>
+</section>
+
+<div class="flagband"></div>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <h2 class="big">Join the Team</h2>
+    <p class="kicker">Have questions or want to volunteer? Let's start a conversation.</p>
+    <div class="c-cols">
+      <div class="c-info">
+        <h3>Contact the Campaign</h3>
+        <p><strong>Email:</strong> <a href="mailto:servingdro@gmail.com">servingdro@gmail.com</a></p>
+        <p><strong>Phone:</strong> <a href="tel:+18312247558">(831) 224-7558</a></p>
+        <p><strong>Campaign HQ:</strong> Del Rey Oaks, CA 93940</p>
+      </div>
+      <form class="c-form" id="cform">
+        <label for="fn">First Name</label><input id="fn" type="text">
+        <label for="ln">Last Name</label><input id="ln" type="text">
+        <label for="em">Email Address</label><input id="em" type="email">
+        <label for="ms">Message</label><textarea id="ms"></textarea>
+        <button class="btn" type="submit" id="sbtn">Send Message</button>
+        <div class="msg" id="fmsg"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="fbrand">CHERYL PARKER · DEL REY OAKS CITY COUNCIL</div>
+  <p>Paid for by Cheryl Parker for Del Rey Oaks City Council</p>
+  <p>© <span id="yr">2026</span> Cheryl Parker. All rights reserved.</p>
+</footer>
+
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+document.getElementById('cform').addEventListener('submit', function(e){
+  e.preventDefault();
+  var fn=document.getElementById('fn').value.trim(), ln=document.getElementById('ln').value.trim(),
+      em=document.getElementById('em').value.trim(), ms=document.getElementById('ms').value.trim(),
+      msg=document.getElementById('fmsg'), btn=document.getElementById('sbtn');
+  if(!fn||!em||!ms){msg.className='msg err';msg.style.display='block';msg.textContent='Please fill in your first name, email, and message.';return;}
+  btn.disabled=true;btn.textContent='Sending…';
+  fetch('https://formspree.io/f/xeevonay',{method:'POST',headers:{'Accept':'application/json','Content-Type':'application/json'},
+    body:JSON.stringify({name:fn+' '+ln,email:em,message:ms})})
+  .then(function(r){if(r.ok){msg.className='msg ok';msg.style.display='block';msg.textContent="Thanks! Cheryl's team will be in touch soon.";document.getElementById('cform').reset();btn.textContent='Sent!';}
+    else{throw 0;}})
+  .catch(function(){msg.className='msg err';msg.style.display='block';msg.textContent='Something went wrong. Please email servingdro@gmail.com directly.';btn.disabled=false;btn.textContent='Send Message';});
+});
+</script>
+</body>
+</html>
