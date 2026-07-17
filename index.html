@@ -19,13 +19,26 @@ h1,h2,h3,.btn{font-family:'Montserrat',Arial,sans-serif}
 a{color:var(--rust)}
 
 /* nav */
-.nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.96);box-shadow:0 1px 8px rgba(0,0,0,.12);display:flex;align-items:center;justify-content:space-between;padding:12px 4%}
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.96);box-shadow:0 1px 8px rgba(0,0,0,.12);display:flex;align-items:center;justify-content:space-between;padding:12px 4%;white-space:nowrap}
 .nav .brand{font-family:'Montserrat';font-weight:800;color:var(--navy);text-decoration:none;font-size:17px;letter-spacing:.03em}
 .nav .brand span{color:var(--rust)}
 .nav ul{display:flex;gap:26px;list-style:none}
 .nav ul a{font-family:'Montserrat';font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--navy);text-decoration:none}
 .nav ul a:hover{color:var(--rust)}
-@media(max-width:700px){.nav ul{gap:14px}.nav ul li:nth-child(n+4){display:none}.nav .brand{font-size:14px}}
+.nav-toggle{display:none;background:none;border:0;cursor:pointer;width:34px;height:34px;padding:0;flex:0 0 auto;flex-direction:column;align-items:center;justify-content:center;gap:5px}
+.nav-toggle span{display:block;width:22px;height:2.5px;border-radius:2px;background:var(--navy);transition:transform .25s ease,opacity .25s ease}
+.nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
+.nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
+.nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
+@media(max-width:700px){
+  .nav .brand span{display:none}
+  .nav .brand{font-size:15px}
+  .nav-toggle{display:flex}
+  .nav ul{position:fixed;top:58px;left:0;right:0;flex-direction:column;gap:0;background:#fff;box-shadow:0 16px 28px rgba(0,0,0,.15);padding:8px 6% 16px;transform:translateY(-12px);opacity:0;pointer-events:none;transition:all .25s ease}
+  .nav ul.open{transform:translateY(0);opacity:1;pointer-events:auto}
+  .nav ul li{width:100%}
+  .nav ul a{display:block;padding:14px 2px;font-size:14px;border-bottom:1px solid #eee}
+}
 
 /* hero */
 .hero{display:flex;min-height:clamp(480px, min(92vh, 62vw), 900px);margin-top:54px}
@@ -36,7 +49,7 @@ a{color:var(--rust)}
 .hero-right{width:49%;flex:1 1 auto;background:url('assets/img/hero.jpg') 5% center/cover no-repeat;box-shadow:31px 0 20px -4px var(--navy) inset}
 .btn{display:inline-block;background:var(--rust);color:#fff;text-decoration:none;font-weight:700;font-size:22px;padding:16px 40px;letter-spacing:.02em;transition:background .2s}
 .btn:hover{background:var(--rust-lt)}
-@media(max-width:800px){.hero{flex-direction:column;min-height:0}.hero-left,.hero-right{width:100%}.hero-left{padding:70px 6%}.hero-right{height:52vw;box-shadow:0 31px 20px -4px var(--navy) inset}}
+@media(max-width:800px){.hero{flex-direction:column;min-height:0;margin-top:62px}.hero-left,.hero-right{width:100%}.hero-left{padding:70px 6%}.hero-right{height:60vw;background-position:center 22%;box-shadow:none}}
 
 /* sections */
 .wrap{max-width:1050px;margin:0 auto;padding:0 22px}
@@ -107,7 +120,8 @@ footer p{font-size:13.5px;margin-top:10px}
 
 <nav class="nav">
   <a class="brand" href="#top">CHERYL PARKER <span>· DEL REY OAKS</span></a>
-  <ul>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  <ul id="navLinks">
     <li><a href="#meet">Meet Cheryl</a></li>
     <li><a href="#issues">Issues</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -266,6 +280,16 @@ footer p{font-size:13.5px;margin-top:10px}
 
 <script>
 document.getElementById('yr').textContent = new Date().getFullYear();
+(function(){
+  var toggle=document.getElementById('navToggle'), links=document.getElementById('navLinks');
+  toggle.addEventListener('click',function(){
+    var open=links.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open?'true':'false');
+  });
+  links.addEventListener('click',function(e){
+    if(e.target.tagName==='A'){links.classList.remove('open');toggle.setAttribute('aria-expanded','false');}
+  });
+})();
 document.getElementById('cform').addEventListener('submit', function(e){
   e.preventDefault();
   var fn=document.getElementById('fn').value.trim(), ln=document.getElementById('ln').value.trim(),
