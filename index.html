@@ -50,7 +50,8 @@
 </script>
 
 <link rel="canonical" href="https://cherylfordro.com/">
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" type="image/png">
+<link rel="apple-touch-icon" href="favicon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -65,8 +66,9 @@ a{color:var(--rust)}
 
 /* nav */
 .nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.96);box-shadow:0 1px 8px rgba(0,0,0,.12);display:flex;align-items:center;justify-content:space-between;padding:12px 4%;white-space:nowrap}
-.nav .brand{font-family:'Montserrat';font-weight:800;color:var(--navy);text-decoration:none;font-size:17px;letter-spacing:.03em}
+.nav .brand{display:flex;align-items:center;gap:10px;font-family:'Montserrat';font-weight:800;color:var(--navy);text-decoration:none;font-size:17px;letter-spacing:.03em}
 .nav .brand span{color:var(--rust)}
+.brand-logo{height:36px;width:auto;flex-shrink:0}
 .nav ul{display:flex;gap:26px;list-style:none}
 .nav ul a{font-family:'Montserrat';font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--navy);text-decoration:none}
 .nav ul a:hover{color:var(--rust)}
@@ -78,6 +80,7 @@ a{color:var(--rust)}
 @media(max-width:700px){
   .nav .brand span{display:none}
   .nav .brand{font-size:15px}
+  .brand-logo{height:28px}
   .nav-toggle{display:flex}
   .nav ul{position:fixed;top:58px;left:0;right:0;flex-direction:column;gap:0;background:#fff;box-shadow:0 16px 28px rgba(0,0,0,.15);padding:8px 6% 16px;transform:translateY(-12px);opacity:0;pointer-events:none;transition:all .25s ease}
   .nav ul.open{transform:translateY(0);opacity:1;pointer-events:auto}
@@ -174,7 +177,7 @@ footer .social a:hover{opacity:1}
 <body>
 
 <nav class="nav">
-  <a class="brand" href="#top">CHERYL PARKER <span>· DEL REY OAKS</span></a>
+  <a class="brand" href="#top"><img src="fav_header.png" alt="" class="brand-logo">CHERYL PARKER <span>· DEL REY OAKS</span></a>
   <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
   <ul id="navLinks">
     <li><a href="#meet">Meet Cheryl</a></li>
