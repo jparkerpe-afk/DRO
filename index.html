@@ -69,9 +69,9 @@ a{color:var(--rust)}
 .nav .brand{display:flex;align-items:center;gap:clamp(6px,1vw,10px);font-family:'Montserrat';font-weight:800;text-decoration:none;letter-spacing:.03em;min-width:0}
 .brand-logo{height:clamp(30px,3.4vw,40px);width:auto;flex-shrink:0}
 .brand-lines{display:flex;flex-direction:row;align-items:baseline;gap:0;white-space:nowrap}
-.brand-line1{color:var(--navy);font-size:clamp(12.5px,1.55vw,17px)}
-.brand-line2{color:var(--rust);font-size:clamp(12.5px,1.55vw,17px)}
-.brand-line2::before{content:" · "}
+.brand-line1{color:var(--navy);font-size:clamp(12.5px,1.55vw,17px);letter-spacing:normal}
+.brand-line2{color:var(--rust);font-size:clamp(12.5px,1.55vw,17px);letter-spacing:normal}
+.brand-line2::before{content:"·";margin-left:9px;margin-right:9px;letter-spacing:0}
 .nav ul{display:flex;gap:26px;list-style:none}
 .nav ul a{font-family:'Montserrat';font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--navy);text-decoration:none}
 .nav ul a:hover{color:var(--rust)}
@@ -81,11 +81,11 @@ a{color:var(--rust)}
 .nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
 .nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
 @media(max-width:700px){
-  .brand-lines{flex-direction:column;gap:0;white-space:normal;line-height:1.22}
+  .brand-lines{flex-direction:column;align-items:center;gap:0;white-space:normal;line-height:1.22}
   .brand-logo{height:32px}
   .brand-line1{font-size:14px}
   .brand-line2{font-size:10.5px;letter-spacing:.06em}
-  .brand-line2::before{content:""}
+  .brand-line2::before{content:"";margin:0}
   .nav-toggle{display:flex}
   .nav ul{position:fixed;top:58px;left:0;right:0;flex-direction:column;gap:0;background:#fff;box-shadow:0 16px 28px rgba(0,0,0,.15);padding:8px 6% 16px;transform:translateY(-12px);opacity:0;pointer-events:none;transition:all .25s ease}
   .nav ul.open{transform:translateY(0);opacity:1;pointer-events:auto}
