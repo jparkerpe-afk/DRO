@@ -1,411 +1,547 @@
-<!-- ============================================================
-     Del Rey Oaks — Balance the Budget
-     Embeddable widget for cherylfordro.com (GitHub Pages, static).
-     Requires budget-data.js loaded alongside this file.
-     Drop the <section id="dro-budget-slider">...</section> block
-     into any page; the <style> and <script> can move to shared
-     site files if preferred.
-     ============================================================ -->
-<section id="dro-budget-slider">
-  <style>
-    #dro-budget-slider {
-      --navy: #203864;
-      --navy-ink: #16264a;
-      --rust: #8B371A;
-      --paper: #F7F4EC;
-      --paper-line: #E4DECE;
-      --ink: #23272E;
-      --ink-soft: #5C6270;
-      --surplus: #3F6B4A;
-      --font-display: Georgia, 'Iowan Old Style', 'Palatino Linotype', serif;
-      --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-85B5EETW4G"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-      background: var(--paper);
-      color: var(--ink);
-      font-family: var(--font-body);
-      border: 1px solid var(--paper-line);
-      border-radius: 4px;
-      max-width: 920px;
-      margin: 0 auto;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    #dro-budget-slider *, #dro-budget-slider *::before, #dro-budget-slider *::after {
-      box-sizing: border-box;
-    }
+  gtag('config', 'G-85B5EETW4G');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Balance the Budget | Cheryl Parker for Del Rey Oaks City Council</title>
+<meta name="description" content="Try the interactive budget widget and see how Del Rey Oaks' General Fund revenue and spending fit together.">
 
-    .dbs-header {
-      background: var(--navy);
-      color: #fff;
-      padding: 28px 32px 24px;
-      border-radius: 4px 4px 0 0;
-    }
-    .dbs-eyebrow {
-      font-size: 12px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: #A9B7D6;
-      margin: 0 0 6px;
-      font-weight: 600;
-    }
-    .dbs-header h2 {
-      font-family: var(--font-display);
-      font-size: 28px;
-      margin: 0 0 8px;
-      font-weight: 700;
-      line-height: 1.15;
-    }
-    .dbs-header p {
-      margin: 0;
-      color: #C7D1E6;
-      font-size: 14.5px;
-      line-height: 1.5;
-      max-width: 60ch;
-    }
+<!-- Open Graph -->
+<meta property="og:title" content="Balance the Budget | Cheryl Parker for Del Rey Oaks City Council">
+<meta property="og:description" content="Move the sliders to see how Del Rey Oaks' revenue and spending fit together.">
+<meta property="og:url" content="https://cherylfordro.com/budget/">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://cherylfordro.com/assets/img/closeup.jpg">
 
-    .dbs-toggle {
-      display: inline-flex;
-      margin-top: 18px;
-      border: 1px solid #46609a;
-      border-radius: 999px;
-      overflow: hidden;
-    }
-    .dbs-toggle button {
-      font-family: var(--font-body);
-      font-size: 13px;
-      font-weight: 600;
-      padding: 7px 16px;
-      border: none;
-      background: transparent;
-      color: #C7D1E6;
-      cursor: pointer;
-      transition: background 0.15s ease, color 0.15s ease;
-    }
-    .dbs-toggle button[aria-pressed="true"] {
-      background: #fff;
-      color: var(--navy-ink);
-    }
-    .dbs-toggle button:not([aria-pressed="true"]):hover {
-      background: #2c4778;
-    }
+<link rel="canonical" href="https://cherylfordro.com/budget/">
+<link rel="icon" href="/favicon-32.png" type="image/png">
+<link rel="apple-touch-icon" href="/favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#203864;--navy-dk:#16264a;--rust:#8B371A;--rust-lt:#A6431F;--cream:#F7ECE8;}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Open Sans',Arial,sans-serif;color:#333;line-height:1.7;font-size:16.5px}
+img{max-width:100%;display:block}
+h1,h2,h3,.btn{font-family:'Montserrat',Arial,sans-serif}
+a{color:var(--rust)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
-    .dbs-body {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 0;
-    }
-    @media (max-width: 720px) {
-      .dbs-body { grid-template-columns: 1fr; }
-      .dbs-summary { order: -1; }
-    }
+/* nav */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.96);box-shadow:0 1px 8px rgba(0,0,0,.12);display:flex;align-items:center;justify-content:space-between;padding:12px 4%;white-space:nowrap}
+.nav .brand{display:flex;align-items:center;gap:clamp(6px,1vw,10px);font-family:'Montserrat';font-weight:800;text-decoration:none;letter-spacing:.03em;min-width:0}
+.brand-logo{height:clamp(30px,3.4vw,40px);width:auto;flex-shrink:0}
+.brand-lines{display:flex;flex-direction:row;align-items:baseline;gap:0;white-space:nowrap}
+.brand-line1{color:var(--navy);font-size:clamp(12.5px,1.55vw,17px);letter-spacing:normal}
+.brand-line2{color:var(--rust);font-size:clamp(12.5px,1.55vw,17px);letter-spacing:normal}
+.brand-line2::before{content:"·";margin-left:9px;margin-right:9px;letter-spacing:0}
+.nav ul{display:flex;gap:26px;list-style:none}
+.nav ul a{font-family:'Montserrat';font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--navy);text-decoration:none}
+.nav ul a:hover{color:var(--rust)}
+.nav ul a[aria-current="page"]{color:var(--rust)}
+.nav-toggle{display:none;background:none;border:0;cursor:pointer;width:34px;height:34px;padding:0;flex:0 0 auto;flex-direction:column;align-items:center;justify-content:center;gap:5px}
+.nav-toggle span{display:block;width:22px;height:2.5px;border-radius:2px;background:var(--navy);transition:transform .25s ease,opacity .25s ease}
+.nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
+.nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
+.nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
+@media(max-width:700px){
+  .brand-lines{flex-direction:column;align-items:center;gap:0;white-space:normal;line-height:1.22}
+  .brand-logo{height:32px}
+  .brand-line1{font-size:14px}
+  .brand-line2{font-size:10.5px;letter-spacing:.06em}
+  .brand-line2::before{content:"";margin:0}
+  .nav-toggle{display:flex}
+  .nav ul{position:fixed;top:58px;left:0;right:0;flex-direction:column;gap:0;background:#fff;box-shadow:0 16px 28px rgba(0,0,0,.15);padding:8px 6% 16px;transform:translateY(-12px);opacity:0;pointer-events:none;transition:all .25s ease}
+  .nav ul.open{transform:translateY(0);opacity:1;pointer-events:auto}
+  .nav ul li{width:100%}
+  .nav ul a{display:block;padding:14px 2px;font-size:14px;border-bottom:1px solid #eee}
+}
 
-    .dbs-columns {
-      padding: 24px 32px 28px;
-      display: grid;
-      gap: 28px;
-    }
-    .dbs-group h3 {
-      font-family: var(--font-display);
-      font-size: 15px;
-      margin: 0 0 4px;
-      color: var(--navy-ink);
-      border-bottom: 1px solid var(--paper-line);
-      padding-bottom: 8px;
-    }
-    .dbs-group .dbs-group-total {
-      float: right;
-      font-family: var(--font-body);
-      font-weight: 600;
-      color: var(--ink-soft);
-    }
-    .dbs-row {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: center;
-      gap: 4px 12px;
-      padding: 10px 0 4px;
-      border-bottom: 1px dashed var(--paper-line);
-    }
-    .dbs-row:last-child { border-bottom: none; }
-    .dbs-row label {
-      font-size: 13.5px;
-      color: var(--ink);
-    }
-    .dbs-row .dbs-value {
-      font-size: 13.5px;
-      font-weight: 600;
-      font-variant-numeric: tabular-nums;
-      color: var(--navy-ink);
-      text-align: right;
-      min-width: 84px;
-    }
-    .dbs-row input[type="range"] {
-      grid-column: 1 / -1;
-      width: 100%;
-      accent-color: var(--navy);
-      height: 20px;
-    }
-    .dbs-columns.dbs-expenditures .dbs-row input[type="range"] {
-      accent-color: var(--rust);
-    }
+/* budget page body */
+.page-wrap{max-width:1050px;margin:0 auto;padding:100px 22px 90px}
 
-    .dbs-summary {
-      background: #fff;
-      border-left: 1px solid var(--paper-line);
-      padding: 24px 28px 28px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-    @media (max-width: 720px) {
-      .dbs-summary { border-left: none; border-bottom: 1px solid var(--paper-line); }
-    }
+/* footer */
+footer{background:var(--navy-dk);color:rgba(255,255,255,.85);text-align:center;padding:44px 20px}
+footer .fbrand{font-family:'Montserrat';font-weight:800;color:#fff;font-size:20px}
+footer p{font-size:13.5px;margin-top:10px}
+footer .social{margin-top:18px}
+footer .social a{display:inline-flex;color:#fff;opacity:.85;transition:opacity .2s ease}
+footer .social a:hover{opacity:1}
+</style>
+</head>
+<body>
 
-    .dbs-beam {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .dbs-beam-row {
-      display: grid;
-      grid-template-columns: 74px 1fr auto;
-      align-items: center;
-      gap: 10px;
-      font-size: 12.5px;
-    }
-    .dbs-beam-label { color: var(--ink-soft); font-weight: 600; }
-    .dbs-beam-track {
-      background: var(--paper);
-      border: 1px solid var(--paper-line);
-      border-radius: 3px;
-      height: 14px;
-      overflow: hidden;
-    }
-    .dbs-beam-fill { height: 100%; border-radius: 2px; transition: width 0.2s ease; }
-    .dbs-beam-fill.revenue { background: var(--navy); }
-    .dbs-beam-fill.expenditures { background: var(--rust); }
-    .dbs-beam-amount { font-variant-numeric: tabular-nums; font-weight: 600; text-align: right; min-width: 88px; }
+<nav class="nav">
+  <a class="brand" href="/">
+    <img src="/fav_header.png" alt="" class="brand-logo">
+    <span class="brand-lines"><span class="brand-line1">CHERYL PARKER</span><span class="brand-line2">DEL REY OAKS</span></span>
+  </a>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  <ul id="navLinks">
+    <li><a href="/#meet">Meet Cheryl</a></li>
+    <li><a href="/#issues">Issues</a></li>
+    <li><a href="/budget/" aria-current="page">Budget</a></li>
+    <li><a href="/#contact">Contact</a></li>
+    <li><a href="https://www.facebook.com/profile.php?id=61591957654921" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.994 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+      </svg>
+    </a></li>
+  </ul>
+</nav>
 
-    .dbs-result {
-      text-align: center;
-      padding: 18px 12px;
-      border-radius: 4px;
-      background: var(--paper);
-      border: 1px solid var(--paper-line);
-    }
-    .dbs-result .dbs-result-label {
-      font-size: 11.5px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--ink-soft);
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-    .dbs-result .dbs-result-figure {
-      font-family: var(--font-display);
-      font-size: 30px;
-      font-weight: 700;
-      font-variant-numeric: tabular-nums;
-    }
-    .dbs-result.surplus .dbs-result-figure { color: var(--surplus); }
-    .dbs-result.deficit .dbs-result-figure { color: var(--rust); }
-    .dbs-result .dbs-result-sub {
-      font-size: 12px;
-      color: var(--ink-soft);
-      margin-top: 4px;
-    }
+<main class="page-wrap">
+  <h1 class="sr-only">Balance the Budget</h1>
 
-    .dbs-reset {
-      align-self: flex-start;
-      font-size: 12.5px;
-      font-weight: 600;
-      color: var(--navy-ink);
-      background: none;
-      border: 1px solid var(--paper-line);
-      border-radius: 4px;
-      padding: 7px 12px;
-      cursor: pointer;
-    }
-    .dbs-reset:hover { background: var(--paper); }
+  <!-- ============================================================
+       Del Rey Oaks — Balance the Budget
+       Embeddable widget for cherylfordro.com (GitHub Pages, static).
+       Requires budget-data.js loaded alongside this file.
+       Drop the <section id="dro-budget-slider">...</section> block
+       into any page; the <style> and <script> can move to shared
+       site files if preferred.
+       ============================================================ -->
+  <section id="dro-budget-slider">
+    <style>
+      #dro-budget-slider {
+        --navy: #203864;
+        --navy-ink: #16264a;
+        --rust: #8B371A;
+        --paper: #F7F4EC;
+        --paper-line: #E4DECE;
+        --ink: #23272E;
+        --ink-soft: #5C6270;
+        --surplus: #3F6B4A;
+        --font-display: Georgia, 'Iowan Old Style', 'Palatino Linotype', serif;
+        --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
 
-    .dbs-notes {
-      font-size: 12px;
-      line-height: 1.5;
-      color: var(--ink-soft);
-      background: var(--paper);
-      border: 1px solid var(--paper-line);
-      border-radius: 4px;
-      padding: 12px 14px;
-    }
-    .dbs-notes strong { color: var(--ink); }
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--font-body);
+        border: 1px solid var(--paper-line);
+        border-radius: 4px;
+        max-width: 920px;
+        margin: 0 auto;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      #dro-budget-slider *, #dro-budget-slider *::before, #dro-budget-slider *::after {
+        box-sizing: border-box;
+      }
 
-    .dbs-footnote {
-      font-size: 11px;
-      color: var(--ink-soft);
-      padding: 0 32px 22px;
-    }
+      .dbs-header {
+        background: var(--navy);
+        color: #fff;
+        padding: 28px 32px 24px;
+        border-radius: 4px 4px 0 0;
+      }
+      .dbs-eyebrow {
+        font-size: 12px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #A9B7D6;
+        margin: 0 0 6px;
+        font-weight: 600;
+      }
+      .dbs-header h2 {
+        font-family: var(--font-display);
+        font-size: 28px;
+        margin: 0 0 8px;
+        font-weight: 700;
+        line-height: 1.15;
+      }
+      .dbs-header p {
+        margin: 0;
+        color: #C7D1E6;
+        font-size: 14.5px;
+        line-height: 1.5;
+        max-width: 60ch;
+      }
 
-    #dro-budget-slider :focus-visible {
-      outline: 2px solid var(--rust);
-      outline-offset: 2px;
-    }
-  </style>
+      .dbs-toggle {
+        display: inline-flex;
+        margin-top: 18px;
+        border: 1px solid #46609a;
+        border-radius: 999px;
+        overflow: hidden;
+      }
+      .dbs-toggle button {
+        font-family: var(--font-body);
+        font-size: 13px;
+        font-weight: 600;
+        padding: 7px 16px;
+        border: none;
+        background: transparent;
+        color: #C7D1E6;
+        cursor: pointer;
+        transition: background 0.15s ease, color 0.15s ease;
+      }
+      .dbs-toggle button[aria-pressed="true"] {
+        background: #fff;
+        color: var(--navy-ink);
+      }
+      .dbs-toggle button:not([aria-pressed="true"]):hover {
+        background: #2c4778;
+      }
 
-  <div class="dbs-header">
-    <p class="dbs-eyebrow">Del Rey Oaks · General Fund</p>
-    <h2>Balance the Budget</h2>
-    <p>Every dollar the City takes in has to go somewhere. Move the sliders to see how revenue and spending fit together — and how easy or hard it is to keep them in balance.</p>
-    <div class="dbs-toggle" role="group" aria-label="Choose a starting budget profile">
-      <button type="button" data-profile="typical" aria-pressed="true">Typical Year</button>
-      <button type="button" data-profile="actual2026" aria-pressed="false">FY2026 Actual Budget</button>
-    </div>
-  </div>
+      .dbs-body {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 0;
+      }
+      @media (max-width: 720px) {
+        .dbs-body { grid-template-columns: 1fr; }
+        .dbs-summary { order: -1; }
+      }
 
-  <div class="dbs-body">
-    <div class="dbs-columns">
-      <div class="dbs-group" data-section="revenue">
-        <h3>Revenue <span class="dbs-group-total" data-total="revenue"></span></h3>
-        <div class="dbs-rows" data-rows="revenue"></div>
+      .dbs-columns {
+        padding: 24px 32px 28px;
+        display: grid;
+        gap: 28px;
+      }
+      .dbs-group h3 {
+        font-family: var(--font-display);
+        font-size: 15px;
+        margin: 0 0 4px;
+        color: var(--navy-ink);
+        border-bottom: 1px solid var(--paper-line);
+        padding-bottom: 8px;
+      }
+      .dbs-group .dbs-group-total {
+        float: right;
+        font-family: var(--font-body);
+        font-weight: 600;
+        color: var(--ink-soft);
+      }
+      .dbs-row {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        gap: 4px 12px;
+        padding: 10px 0 4px;
+        border-bottom: 1px dashed var(--paper-line);
+      }
+      .dbs-row:last-child { border-bottom: none; }
+      .dbs-row label {
+        font-size: 13.5px;
+        color: var(--ink);
+      }
+      .dbs-row .dbs-value {
+        font-size: 13.5px;
+        font-weight: 600;
+        font-variant-numeric: tabular-nums;
+        color: var(--navy-ink);
+        text-align: right;
+        min-width: 84px;
+      }
+      .dbs-row input[type="range"] {
+        grid-column: 1 / -1;
+        width: 100%;
+        accent-color: var(--navy);
+        height: 20px;
+      }
+      .dbs-columns.dbs-expenditures .dbs-row input[type="range"] {
+        accent-color: var(--rust);
+      }
+
+      .dbs-summary {
+        background: #fff;
+        border-left: 1px solid var(--paper-line);
+        padding: 24px 28px 28px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      @media (max-width: 720px) {
+        .dbs-summary { border-left: none; border-bottom: 1px solid var(--paper-line); }
+      }
+
+      .dbs-beam {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .dbs-beam-row {
+        display: grid;
+        grid-template-columns: 74px 1fr auto;
+        align-items: center;
+        gap: 10px;
+        font-size: 12.5px;
+      }
+      .dbs-beam-label { color: var(--ink-soft); font-weight: 600; }
+      .dbs-beam-track {
+        background: var(--paper);
+        border: 1px solid var(--paper-line);
+        border-radius: 3px;
+        height: 14px;
+        overflow: hidden;
+      }
+      .dbs-beam-fill { height: 100%; border-radius: 2px; transition: width 0.2s ease; }
+      .dbs-beam-fill.revenue { background: var(--navy); }
+      .dbs-beam-fill.expenditures { background: var(--rust); }
+      .dbs-beam-amount { font-variant-numeric: tabular-nums; font-weight: 600; text-align: right; min-width: 88px; }
+
+      .dbs-result {
+        text-align: center;
+        padding: 18px 12px;
+        border-radius: 4px;
+        background: var(--paper);
+        border: 1px solid var(--paper-line);
+      }
+      .dbs-result .dbs-result-label {
+        font-size: 11.5px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--ink-soft);
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+      .dbs-result .dbs-result-figure {
+        font-family: var(--font-display);
+        font-size: 30px;
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
+      }
+      .dbs-result.surplus .dbs-result-figure { color: var(--surplus); }
+      .dbs-result.deficit .dbs-result-figure { color: var(--rust); }
+      .dbs-result .dbs-result-sub {
+        font-size: 12px;
+        color: var(--ink-soft);
+        margin-top: 4px;
+      }
+
+      .dbs-reset {
+        align-self: flex-start;
+        font-size: 12.5px;
+        font-weight: 600;
+        color: var(--navy-ink);
+        background: none;
+        border: 1px solid var(--paper-line);
+        border-radius: 4px;
+        padding: 7px 12px;
+        cursor: pointer;
+      }
+      .dbs-reset:hover { background: var(--paper); }
+
+      .dbs-notes {
+        font-size: 12px;
+        line-height: 1.5;
+        color: var(--ink-soft);
+        background: var(--paper);
+        border: 1px solid var(--paper-line);
+        border-radius: 4px;
+        padding: 12px 14px;
+      }
+      .dbs-notes strong { color: var(--ink); }
+
+      .dbs-footnote {
+        font-size: 11px;
+        color: var(--ink-soft);
+        padding: 0 32px 22px;
+      }
+
+      #dro-budget-slider :focus-visible {
+        outline: 2px solid var(--rust);
+        outline-offset: 2px;
+      }
+    </style>
+
+    <div class="dbs-header">
+      <p class="dbs-eyebrow">Del Rey Oaks · General Fund</p>
+      <h2>Balance the Budget</h2>
+      <p>Every dollar the City takes in has to go somewhere. Move the sliders to see how revenue and spending fit together — and how easy or hard it is to keep them in balance.</p>
+      <div class="dbs-toggle" role="group" aria-label="Choose a starting budget profile">
+        <button type="button" data-profile="typical" aria-pressed="true">Typical Year</button>
+        <button type="button" data-profile="actual2026" aria-pressed="false">FY2026 Actual Budget</button>
       </div>
-      <div class="dbs-group dbs-expenditures" data-section="expenditures">
-        <h3>Expenditures <span class="dbs-group-total" data-total="expenditures"></span></h3>
-        <div class="dbs-rows" data-rows="expenditures"></div>
-      </div>
     </div>
 
-    <div class="dbs-summary">
-      <div class="dbs-beam">
-        <div class="dbs-beam-row">
-          <span class="dbs-beam-label">Revenue</span>
-          <span class="dbs-beam-track"><span class="dbs-beam-fill revenue" data-beam="revenue"></span></span>
-          <span class="dbs-beam-amount" data-beam-amount="revenue"></span>
+    <div class="dbs-body">
+      <div class="dbs-columns">
+        <div class="dbs-group" data-section="revenue">
+          <h3>Revenue <span class="dbs-group-total" data-total="revenue"></span></h3>
+          <div class="dbs-rows" data-rows="revenue"></div>
         </div>
-        <div class="dbs-beam-row">
-          <span class="dbs-beam-label">Spending</span>
-          <span class="dbs-beam-track"><span class="dbs-beam-fill expenditures" data-beam="expenditures"></span></span>
-          <span class="dbs-beam-amount" data-beam-amount="expenditures"></span>
+        <div class="dbs-group dbs-expenditures" data-section="expenditures">
+          <h3>Expenditures <span class="dbs-group-total" data-total="expenditures"></span></h3>
+          <div class="dbs-rows" data-rows="expenditures"></div>
         </div>
       </div>
 
-      <div class="dbs-result" data-result>
-        <div class="dbs-result-label">Surplus / Deficit</div>
-        <div class="dbs-result-figure" data-result-figure>—</div>
-        <div class="dbs-result-sub" data-result-sub></div>
-      </div>
+      <div class="dbs-summary">
+        <div class="dbs-beam">
+          <div class="dbs-beam-row">
+            <span class="dbs-beam-label">Revenue</span>
+            <span class="dbs-beam-track"><span class="dbs-beam-fill revenue" data-beam="revenue"></span></span>
+            <span class="dbs-beam-amount" data-beam-amount="revenue"></span>
+          </div>
+          <div class="dbs-beam-row">
+            <span class="dbs-beam-label">Spending</span>
+            <span class="dbs-beam-track"><span class="dbs-beam-fill expenditures" data-beam="expenditures"></span></span>
+            <span class="dbs-beam-amount" data-beam-amount="expenditures"></span>
+          </div>
+        </div>
 
-      <button type="button" class="dbs-reset" data-reset>Reset to starting values</button>
+        <div class="dbs-result" data-result>
+          <div class="dbs-result-label">Surplus / Deficit</div>
+          <div class="dbs-result-figure" data-result-figure>—</div>
+          <div class="dbs-result-sub" data-result-sub></div>
+        </div>
 
-      <div class="dbs-notes">
-        <strong>Two things worth knowing:</strong>
-        <div data-note="airportOffset" style="margin-top:6px;"></div>
-        <div data-note="propertyTaxTiming" style="margin-top:8px;"></div>
+        <button type="button" class="dbs-reset" data-reset>Reset to starting values</button>
+
+        <div class="dbs-notes">
+          <strong>Two things worth knowing:</strong>
+          <div data-note="airportOffset" style="margin-top:6px;"></div>
+          <div data-note="propertyTaxTiming" style="margin-top:8px;"></div>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="dbs-footnote">Source: City of Del Rey Oaks monthly financial packets, City Manager's office. Figures rounded.</div>
+    <div class="dbs-footnote">Source: City of Del Rey Oaks monthly financial packets, City Manager's office. Figures rounded.</div>
 
-  <script src="budget-data.js"></script>
-  <script>
-  (function () {
-    const root = document.getElementById('dro-budget-slider');
-    if (!root || typeof DRO_BUDGET === 'undefined') return;
+    <script src="budget-data.js"></script>
+    <script>
+    (function () {
+      const root = document.getElementById('dro-budget-slider');
+      if (!root || typeof DRO_BUDGET === 'undefined') return;
 
-    const fmt = (n) => '$' + Math.round(n).toLocaleString('en-US');
-    const SLIDER_RANGE = 2; // slider spans 0x–2x of the starting amount
+      const fmt = (n) => '$' + Math.round(n).toLocaleString('en-US');
+      const SLIDER_RANGE = 2; // slider spans 0x–2x of the starting amount
 
-    let profileKey = DRO_BUDGET.defaultProfile;
-    let state = {}; // { revenue: {key: amount}, expenditures: {key: amount} }
+      let profileKey = DRO_BUDGET.defaultProfile;
+      let state = {}; // { revenue: {key: amount}, expenditures: {key: amount} }
 
-    function loadProfile(key) {
-      profileKey = key;
-      const p = DRO_BUDGET.profiles[key];
-      state = {
-        revenue: Object.fromEntries(Object.entries(p.revenue).map(([k, v]) => [k, v.amount])),
-        expenditures: Object.fromEntries(Object.entries(p.expenditures).map(([k, v]) => [k, v.amount])),
-      };
-      renderRows();
-      update();
-    }
+      function loadProfile(key) {
+        profileKey = key;
+        const p = DRO_BUDGET.profiles[key];
+        state = {
+          revenue: Object.fromEntries(Object.entries(p.revenue).map(([k, v]) => [k, v.amount])),
+          expenditures: Object.fromEntries(Object.entries(p.expenditures).map(([k, v]) => [k, v.amount])),
+        };
+        renderRows();
+        update();
+      }
 
-    function renderRows() {
-      const p = DRO_BUDGET.profiles[profileKey];
-      ['revenue', 'expenditures'].forEach((section) => {
-        const container = root.querySelector(`[data-rows="${section}"]`);
-        container.innerHTML = '';
-        Object.entries(p[section]).forEach(([key, meta]) => {
-          const max = Math.max(meta.amount * SLIDER_RANGE, meta.amount + 50000);
-          const row = document.createElement('div');
-          row.className = 'dbs-row';
-          row.innerHTML = `
-            <label for="dbs-${section}-${key}">${meta.label}</label>
-            <span class="dbs-value" data-value="${section}-${key}">${fmt(meta.amount)}</span>
-            <input type="range" id="dbs-${section}-${key}" min="0" max="${Math.round(max)}"
-                   step="1000" value="${meta.amount}" data-key="${key}" data-section="${section}"
-                   aria-label="${meta.label}">
-          `;
-          container.appendChild(row);
+      function renderRows() {
+        const p = DRO_BUDGET.profiles[profileKey];
+        ['revenue', 'expenditures'].forEach((section) => {
+          const container = root.querySelector(`[data-rows="${section}"]`);
+          container.innerHTML = '';
+          Object.entries(p[section]).forEach(([key, meta]) => {
+            const max = Math.max(meta.amount * SLIDER_RANGE, meta.amount + 50000);
+            const row = document.createElement('div');
+            row.className = 'dbs-row';
+            row.innerHTML = `
+              <label for="dbs-${section}-${key}">${meta.label}</label>
+              <span class="dbs-value" data-value="${section}-${key}">${fmt(meta.amount)}</span>
+              <input type="range" id="dbs-${section}-${key}" min="0" max="${Math.round(max)}"
+                     step="1000" value="${meta.amount}" data-key="${key}" data-section="${section}"
+                     aria-label="${meta.label}">
+            `;
+            container.appendChild(row);
+          });
+        });
+        root.querySelectorAll('input[type="range"]').forEach((el) => {
+          el.addEventListener('input', onSlide);
+        });
+      }
+
+      function onSlide(e) {
+        const { section, key } = e.target.dataset;
+        const val = Number(e.target.value);
+        state[section][key] = val;
+        root.querySelector(`[data-value="${section}-${key}"]`).textContent = fmt(val);
+        update();
+      }
+
+      function totals() {
+        const revenue = Object.values(state.revenue).reduce((s, v) => s + v, 0);
+        const expenditures = Object.values(state.expenditures).reduce((s, v) => s + v, 0);
+        return { revenue, expenditures, diff: revenue - expenditures };
+      }
+
+      function update() {
+        const { revenue, expenditures, diff } = totals();
+        root.querySelector('[data-total="revenue"]').textContent = fmt(revenue);
+        root.querySelector('[data-total="expenditures"]').textContent = fmt(expenditures);
+
+        const maxBeam = Math.max(revenue, expenditures, 1);
+        root.querySelector('[data-beam="revenue"]').style.width = (revenue / maxBeam * 100) + '%';
+        root.querySelector('[data-beam="expenditures"]').style.width = (expenditures / maxBeam * 100) + '%';
+        root.querySelector('[data-beam-amount="revenue"]').textContent = fmt(revenue);
+        root.querySelector('[data-beam-amount="expenditures"]').textContent = fmt(expenditures);
+
+        const resultEl = root.querySelector('[data-result]');
+        const figureEl = root.querySelector('[data-result-figure]');
+        const subEl = root.querySelector('[data-result-sub]');
+        resultEl.classList.remove('surplus', 'deficit');
+        if (diff >= 0) {
+          resultEl.classList.add('surplus');
+          figureEl.textContent = fmt(diff) + ' surplus';
+          subEl.textContent = 'Revenue covers spending, with room to spare.';
+        } else {
+          resultEl.classList.add('deficit');
+          figureEl.textContent = fmt(Math.abs(diff)) + ' deficit';
+          subEl.textContent = 'Spending outpaces revenue — something has to give.';
+        }
+      }
+
+      // Toggle buttons
+      root.querySelectorAll('.dbs-toggle button').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          root.querySelectorAll('.dbs-toggle button').forEach((b) => b.setAttribute('aria-pressed', 'false'));
+          btn.setAttribute('aria-pressed', 'true');
+          loadProfile(btn.dataset.profile);
         });
       });
-      root.querySelectorAll('input[type="range"]').forEach((el) => {
-        el.addEventListener('input', onSlide);
-      });
-    }
 
-    function onSlide(e) {
-      const { section, key } = e.target.dataset;
-      const val = Number(e.target.value);
-      state[section][key] = val;
-      root.querySelector(`[data-value="${section}-${key}"]`).textContent = fmt(val);
-      update();
-    }
+      root.querySelector('[data-reset]').addEventListener('click', () => loadProfile(profileKey));
 
-    function totals() {
-      const revenue = Object.values(state.revenue).reduce((s, v) => s + v, 0);
-      const expenditures = Object.values(state.expenditures).reduce((s, v) => s + v, 0);
-      return { revenue, expenditures, diff: revenue - expenditures };
-    }
+      root.querySelector('[data-note="airportOffset"]').textContent = DRO_BUDGET.notes.airportOffset;
+      root.querySelector('[data-note="propertyTaxTiming"]').textContent = DRO_BUDGET.notes.propertyTaxTiming;
 
-    function update() {
-      const { revenue, expenditures, diff } = totals();
-      root.querySelector('[data-total="revenue"]').textContent = fmt(revenue);
-      root.querySelector('[data-total="expenditures"]').textContent = fmt(expenditures);
+      loadProfile(profileKey);
+    })();
+    </script>
+  </section>
+</main>
 
-      const maxBeam = Math.max(revenue, expenditures, 1);
-      root.querySelector('[data-beam="revenue"]').style.width = (revenue / maxBeam * 100) + '%';
-      root.querySelector('[data-beam="expenditures"]').style.width = (expenditures / maxBeam * 100) + '%';
-      root.querySelector('[data-beam-amount="revenue"]').textContent = fmt(revenue);
-      root.querySelector('[data-beam-amount="expenditures"]').textContent = fmt(expenditures);
+<footer>
+  <div class="fbrand">CHERYL PARKER · DEL REY OAKS CITY COUNCIL</div>
+  <div class="social">
+    <a href="https://www.facebook.com/profile.php?id=61591957654921" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.994 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+      </svg>
+    </a>
+  </div>
+  <p>Paid for by Cheryl Parker for Del Rey Oaks City Council</p>
+  <p>© <span id="yr">2026</span> Cheryl Parker. All rights reserved.</p>
+</footer>
 
-      const resultEl = root.querySelector('[data-result]');
-      const figureEl = root.querySelector('[data-result-figure]');
-      const subEl = root.querySelector('[data-result-sub]');
-      resultEl.classList.remove('surplus', 'deficit');
-      if (diff >= 0) {
-        resultEl.classList.add('surplus');
-        figureEl.textContent = fmt(diff) + ' surplus';
-        subEl.textContent = 'Revenue covers spending, with room to spare.';
-      } else {
-        resultEl.classList.add('deficit');
-        figureEl.textContent = fmt(Math.abs(diff)) + ' deficit';
-        subEl.textContent = 'Spending outpaces revenue — something has to give.';
-      }
-    }
-
-    // Toggle buttons
-    root.querySelectorAll('.dbs-toggle button').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        root.querySelectorAll('.dbs-toggle button').forEach((b) => b.setAttribute('aria-pressed', 'false'));
-        btn.setAttribute('aria-pressed', 'true');
-        loadProfile(btn.dataset.profile);
-      });
-    });
-
-    root.querySelector('[data-reset]').addEventListener('click', () => loadProfile(profileKey));
-
-    root.querySelector('[data-note="airportOffset"]').textContent = DRO_BUDGET.notes.airportOffset;
-    root.querySelector('[data-note="propertyTaxTiming"]').textContent = DRO_BUDGET.notes.propertyTaxTiming;
-
-    loadProfile(profileKey);
-  })();
-  </script>
-</section>
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+(function(){
+  var toggle=document.getElementById('navToggle'), links=document.getElementById('navLinks');
+  toggle.addEventListener('click',function(){
+    var open=links.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open?'true':'false');
+  });
+  links.addEventListener('click',function(e){
+    if(e.target.tagName==='A'){links.classList.remove('open');toggle.setAttribute('aria-expanded','false');}
+  });
+})();
+</script>
+</body>
+</html>
