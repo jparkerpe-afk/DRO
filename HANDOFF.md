@@ -16,12 +16,14 @@ hero → intro → "Why Cheryl for City Council?" → Meet Cheryl → On The Iss
 | Path | What |
 |---|---|
 | `C:\DRO\Website\` | The git working copy — **this is the repo root**, tracks `origin` at `https://github.com/jparkerpe-afk/DRO.git`, branch `main` |
-| `C:\DRO\Website\index.html` | The entire site. Inline `<style>` and `<script>`, no separate CSS/JS files. |
-| `C:\DRO\Website\assets\img\` | Web-optimized (resized, EXIF-stripped) images actually used by the site |
+| `C:\DRO\Website\index.html` | The entire site — all CSS and JS live inline in `<style>`/`<script>`. **It loads no external CSS or JS whatsoever.** |
+| `C:\DRO\Website\assets\img\` | Web-optimized (resized, EXIF-stripped) images. Only 6 of the 17 are actually referenced — see **Images** below |
+| `C:\DRO\Website\assets\css\style.css`, `assets\js\main.js` | **Dead files.** Left over from before the CSS/JS were inlined; `index.html` does not load them. Editing these will not change the site |
+| `C:\DRO\Website\_config.yml` | Jekyll config whose only job is keeping `HANDOFF.md`/`README.md` off the public site — see **Internal docs** below. **Don't delete it** |
 | `C:\DRO\Website\favicon-32.png` / `favicon-180.png` / `favicon-512.png` | Tab icon / apple-touch-icon / master — solid white background |
 | `C:\DRO\Website\fav_header.png` | Same tree mark but **transparent background** — used in the nav bar next to the brand text, not the solid-white favicon files |
 | `C:\DRO\Logos\` | Source/original brand asset files (not all committed to the repo — pull from here if you need to regenerate a crop) |
-| `C:\DRO\Pictures\`, `C:\DRO\*.jpg/.JPG` (repo root) | Raw/original campaign photos, largely unsorted. User has flagged wanting a cleaner `Images` folder eventually — not done yet, low priority |
+| `C:\DRO\Pictures\`, `C:\DRO\*.jpg/.JPG` | Raw/original campaign photos, largely unsorted — **also the archive** holding the 17 unused originals removed from the repo on 2026-07-31. User has flagged wanting a cleaner `Images` folder eventually — not done yet, low priority |
 | `C:\Stocks\.claude\launch.json` | Local preview server config (see below) — lives under `C:\Stocks` (the fixed Claude Code working-directory root for this environment) even though the actual site moved to `C:\DRO\Website` |
 
 **Note:** the site used to live at `C:\Stocks\DRO` — it was moved to
@@ -132,10 +134,63 @@ cached/built version, sometimes for many minutes, occasionally overnight.
 - Contact info shown is intentionally limited: campaign email
   (servingdro@gmail.com), phone, city+ZIP only (no street address — privacy),
   and a Facebook page link. Don't add a home address.
-- No sensitive PII or GPS/EXIF metadata in any published image — this was
-  explicitly audited. New images added later should still be run through
-  EXIF stripping (see git history around 2026-07-1x for the PowerShell
-  pattern used) before committing, to keep that guarantee true.
+- No sensitive PII or GPS/EXIF metadata in any published image. **Re-verified
+  2026-07-31** by reading EXIF off the files as actually served: zero GPS
+  tags, no camera make/model, no capture timestamps — on both the
+  `assets/img/` set and the full-size root originals. New images added later
+  should still be run through EXIF stripping (see git history around
+  2026-07-1x for the PowerShell pattern used) before committing, to keep
+  that guarantee true.
+
+## Internal docs are excluded from the published site
+
+GitHub Pages serves the entire repo root, so `HANDOFF.md` and `README.md`
+were being served from **`cherylfordro.com/HANDOFF.md`** — the campaign's own
+domain, not just github.com. `_config.yml` exists solely to stop that:
+
+```yaml
+exclude:
+  - HANDOFF.md
+  - README.md
+```
+
+**Don't delete `_config.yml` on the reasoning that this site "has no build
+step."** Pages still runs Jekyll, and removing it silently republishes both
+docs to the public domain. Verify with:
+
+    curl -s -o /dev/null -w "%{http_code}" https://cherylfordro.com/HANDOFF.md   # expect 404
+
+Note this only affects the *domain*. The repo is public, so both files stay
+readable on github.com, and the complete file list is enumerable by anyone
+via `https://api.github.com/repos/jparkerpe-afk/DRO/git/trees/main?recursive=1`.
+Git history is likewise permanent and public — deleting a file unpublishes
+it, it does not erase it. Assume anything ever committed is public forever.
+
+## Images
+
+**Only 9 image files are used by the live site:**
+
+- `assets/img/` — `hero.jpg`, `hero-mobile.jpg`, `flags.jpg`, `frogpond.jpg`,
+  `juncture.jpg`, `welcome.jpg`, and `closeup.jpg`
+- root — `fav_header.png`, `favicon-32.png`, `favicon-180.png`
+
+Two easy-to-misread cases: **`closeup.jpg` is the `og:image`** — it never
+renders on the page, so it looks unused but breaks social-share previews if
+removed; and **`hero-mobile.jpg` is swapped in via `background-image` inside
+the `@media(max-width:800px)` block** (it's the same 3:2 crop as `hero.jpg`
+at 900×600 instead of 1920×1280, ~77% smaller — keep both in sync if the
+hero photo is ever replaced).
+
+On 2026-07-31, 17 unused originals (~29 MB) were removed from the repo root
+and archived to `C:\DRO\Pictures\`. Deliberately **kept** despite being
+unreferenced: `cheryl-hero-banner.png`, `del-rey-oaks-view.jpg` and
+`CherylFull.png` (may be linked externally from Facebook/email — deleting
+would 404 those), `favicon-512.png` (master for regenerating the favicon
+set), `favicon.svg`, and the 11 unused-but-optimized files in `assets/img/`.
+
+Before deleting any image, check references against `index.html` **and**
+remember `assets/css/style.css` / `assets/js/main.js` are dead — an image
+referenced only from those is not actually in use.
 
 ## Local preview
 
@@ -155,3 +210,9 @@ caused confusion before.
 - No `robots.txt` / `sitemap.xml`.
 - Airport Noise section is intentionally left general pending someone else's
   review (see above) — revisit once that review happens.
+- `assets/css/style.css` and `assets/js/main.js` are dead and could be
+  deleted; left in place for now as a reference copy of the pre-inline CSS.
+- The contact form posts to a public Formspree endpoint (`xeevonay`) that
+  anyone can POST to directly. Not a breach risk — it's how Formspree works —
+  but if it ever gets spammed, enable reCAPTCHA / allowed-domains in the
+  Formspree dashboard.
