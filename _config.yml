@@ -1,0 +1,8 @@
+# GitHub Pages (Jekyll) build config.
+#
+# Sole purpose: keep internal project docs out of the *published* site.
+# These files stay in the repo (and on github.com) — they're just not
+# copied into the build, so they are not served from cherylfordro.com.
+exclude:
+  - HANDOFF.md
+  - README.md
