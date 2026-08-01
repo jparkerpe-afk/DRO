@@ -122,14 +122,13 @@ cached/built version, sometimes for many minutes, occasionally overnight.
   exception left as-is: the generic phrase "grounded in professional
   experience" in the Why Cheryl section — that's a different word usage, not
   the credential title, user explicitly said leave it.
-- **Airport Noise section was deliberately de-specified** — it used to state
-  a 2008 study date, a taxiway relocation claim, and cite "14 CFR Part 150"
-  by name. User pulled all of that because it wasn't independently verified
-  ("we don't know for a fact... we'd like to get another person's input
-  before claiming things"). Current copy is intentionally general. **Don't
-  re-add specific factual/regulatory claims to this section without
-  checking with the user first** — this is a live editorial constraint, not
-  just a one-time cleanup.
+- **Airport Noise section is intentionally general.** Earlier drafts carried
+  specific factual and regulatory assertions; those were removed because
+  they hadn't been independently verified, and the user wants outside input
+  before the campaign asserts specifics there. **Don't add dates, study
+  references, or regulatory citations to this section without checking with
+  the user first** — this is a live editorial constraint, not a one-time
+  cleanup.
 - Contact info shown is intentionally limited: campaign email
   (servingdro@gmail.com), phone, city+ZIP only (no street address — privacy),
   and a Facebook page link. Don't add a home address.
