@@ -71,8 +71,13 @@ cached/built version, sometimes for many minutes, occasionally overnight.
   matches the actual GitHub Pages redirect direction. There was a prior bug
   where `og:url`/JSON-LD pointed at the `www` version while the site actually
   redirects `www` → bare domain; fixed 2026-07-2x, don't reintroduce it.
-- No `robots.txt` or `sitemap.xml` exists yet — flagged as a possible future
-  addition, not done.
+- **`robots.txt` and `sitemap.xml` exist** (added 2026-08-03). `robots.txt` is
+  deliberately permissive — there is nothing on the site worth blocking, and
+  listing a path there would advertise it rather than protect it. Its real job
+  is the `Sitemap:` line. **`sitemap.xml` carries a `<lastmod>` date that must
+  be updated when the site changes** — Google uses that field only while it
+  stays honest, and starts ignoring it if it goes stale. Add a `<url>` entry
+  for any new page (e.g. a future `/transparency/`).
 - Referrer spam in Analytics (e.g. hits from `compfight.com`, `sysoon.com`)
   is normal/expected — bots hitting the public GA tag ID directly, not real
   traffic, not a security issue. No action needed beyond optionally adding a
@@ -207,7 +212,7 @@ caused confusion before.
 
 - Loose photo files under `C:\DRO\` and `C:\DRO\Pictures\` are unsorted; user
   wants an `Images` folder eventually, not urgent.
-- No `robots.txt` / `sitemap.xml`.
+- `sitemap.xml`'s `<lastmod>` is updated by hand — check it when the site changes.
 - Airport Noise section is intentionally left general pending someone else's
   review (see above) — revisit once that review happens.
 - `assets/css/style.css` and `assets/js/main.js` are dead and could be
