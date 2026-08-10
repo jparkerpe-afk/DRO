@@ -218,11 +218,9 @@ footer .social a:hover{opacity:1}
 .amt .b{display:block;margin-top:7px;font-size:12px;color:#5a616f;line-height:1.35}
 .amt.sel .n{color:var(--rust)}
 .gnote{margin-top:11px;font-size:13.5px;color:#7a808d}
-/* Closing note where the contribution step used to sit. Centered and set apart
-   from the numbered ladder so it reads as a footnote, not a fourth step. */
-.moneynote{max-width:660px;margin:30px auto 0;text-align:center;font-size:14.5px;
-  padding-top:24px;border-top:1px solid #e6e8ee}
-.moneynote strong{color:var(--navy)}
+/* Amount buttons link to the hosted Anedot page with the amount prefilled via
+   ?amount=, so giving is one click and no JS is involved. */
+a.amt{display:block;text-decoration:none}
 .seewhere{margin-top:18px}
 .seewhere a{font-family:'Montserrat';font-weight:700;font-size:15.5px;color:var(--navy);
   text-decoration:none;border-bottom:2px solid var(--rust);padding-bottom:2px}
@@ -412,8 +410,8 @@ footer .social a:hover{opacity:1}
 <section class="involve" id="get-involved">
   <div class="wrap">
     <h2 class="big">Get Involved</h2>
-    <p class="lede">Three ways to help, listed easiest first. None of them cost anything &mdash;
-    the most valuable thing you can give this campaign is a conversation with a neighbor.</p>
+    <p class="lede">Four ways to help, listed easiest first. The most valuable thing you can
+    do for this campaign doesn't cost anything.</p>
 
     <div class="steps">
 
@@ -484,12 +482,29 @@ footer .social a:hover{opacity:1}
         </div>
       </div>
 
-    </div>
+      <div class="step">
+        <div class="step-n"><span>4</span></div>
+        <div class="step-b">
+          <h3>Chip in<span class="effort">Any amount</span></h3>
+          <p>And if none of the above fits your schedule &mdash; a contribution always helps,
+          and it funds the campaign directly. There are no paid staff, so every dollar buys
+          paper, signs, and stamps. Nothing else.</p>
+          <p>Give what's easy. Twenty dollars is a real help at this size.</p>
 
-    <p class="gnote moneynote"><strong>Would you rather contribute?</strong>
-    Email <a href="mailto:servingdro@gmail.com">servingdro@gmail.com</a> and the campaign
-    will follow up with how. There are no paid staff &mdash; contributions go to walk cards,
-    yard signs and postage.</p>
+          <div class="amounts">
+            <a class="amt" href="https://secure.anedot.com/committee-to-elect-cheryl-parker-for-del-rey-oaks-city-council-2026/donate?amount=20&amp;source_code=website"><span class="n">$20</span></a>
+            <a class="amt" href="https://secure.anedot.com/committee-to-elect-cheryl-parker-for-del-rey-oaks-city-council-2026/donate?amount=50&amp;source_code=website"><span class="n">$50</span></a>
+            <a class="amt" href="https://secure.anedot.com/committee-to-elect-cheryl-parker-for-del-rey-oaks-city-council-2026/donate?amount=75&amp;source_code=website"><span class="n">$75</span></a>
+            <a class="amt" href="https://secure.anedot.com/committee-to-elect-cheryl-parker-for-del-rey-oaks-city-council-2026/donate?amount=99&amp;source_code=website"><span class="n">$99</span></a>
+          </div>
+          <a class="btn ghost" href="https://secure.anedot.com/committee-to-elect-cheryl-parker-for-del-rey-oaks-city-council-2026/donate?amounts=20,50,75,99&amp;source_code=website">Give another amount</a>
+          <p class="gnote">Contributions are processed securely by Anedot &mdash; card details
+          never touch this site. Prefer to give by check? Email
+          <a href="mailto:servingdro@gmail.com">servingdro@gmail.com</a>.</p>
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>
 
@@ -517,7 +532,7 @@ footer .social a:hover{opacity:1}
       </svg>
     </a>
   </div>
-  <p>Paid for by Cheryl Parker for Del Rey Oaks City Council</p>
+  <p>Paid for by Committee to Elect Cheryl Parker for Del Rey Oaks City Council 2026</p>
   <p>© <span id="yr">2026</span> Cheryl Parker. All rights reserved.</p>
 </footer>
 
