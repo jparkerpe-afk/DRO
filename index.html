@@ -13,14 +13,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cheryl Parker for Del Rey Oaks City Council</title>
-<meta name="description" content="Putting knowledge & experience to work for the city. Cheryl Parker — licensed civil engineer, DRO resident — is running for City Council.">
+<meta name="description" content="Solving Problems, Serving Neighbors. Cheryl Parker — licensed civil engineer, DRO resident — is running for City Council.">
 
 <!-- Meta Keywords -->
 <meta name="keywords" content="Cheryl Parker, Del Rey Oaks city council, Del Rey Oaks election 2026, DRO city council, Del Rey Oaks California, Cheryl Parker engineer, Fort Ord development, Del Rey Oaks November 2026">
 
 <!-- Open Graph -->
 <meta property="og:title" content="Cheryl Parker for Del Rey Oaks City Council">
-<meta property="og:description" content="Putting knowledge & experience to work for the city.">
+<meta property="og:description" content="Solving Problems, Serving Neighbors.">
 <meta property="og:url" content="https://cherylfordro.com/">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://cherylfordro.com/assets/img/closeup.jpg">
@@ -96,10 +96,14 @@ a{color:var(--rust)}
 /* hero */
 .hero{display:flex;min-height:clamp(480px, min(92vh, 62vw), 900px);margin-top:66px}
 .hero-left{background:var(--navy);width:51%;flex:0 0 51%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:60px 5%}
-.hero-left h1{color:#fff;font-weight:800;line-height:1.15;font-size:clamp(34px,4.5vw,58px)}
+/* Type scale tuned to the current headline. "Solving Problems, Serving Neighbors"
+   has two long words, and the panel's text column is narrower than it looks —
+   percentage padding resolves against .hero, not .hero-left. At 4.5vw/58px the
+   line broke one-word-per-line below ~1400px. Re-measure if the headline changes. */
+.hero-left h1{color:#fff;font-weight:800;line-height:1.15;font-size:clamp(30px,3.8vw,54px);text-wrap:balance}
 .hero-left h1 small{display:block;font-size:.72em;font-weight:700}
 .hero-left .btn{margin-top:42px}
-.hero-right{width:49%;flex:1 1 auto;background:url('assets/img/hero.jpg') 5% center/cover no-repeat;box-shadow:31px 0 20px -4px var(--navy) inset}
+.hero-right{width:49%;flex:1 1 auto;background:url('assets/img/hero.jpg') 50% center/cover no-repeat;box-shadow:31px 0 20px -4px var(--navy) inset}
 .btn{display:inline-block;background:var(--rust);color:#fff;text-decoration:none;font-weight:700;font-size:22px;padding:16px 40px;letter-spacing:.02em;transition:background .2s}
 .btn:hover{background:var(--rust-lt)}
 @media(max-width:800px){.hero{flex-direction:column;min-height:0;margin-top:66px}.hero-left,.hero-right{width:100%}.hero-left{padding:70px 6%}.hero-right{height:60vw;background-image:url('assets/img/hero-mobile.jpg');background-position:center 22%;box-shadow:none}}
@@ -260,7 +264,7 @@ a.amt{display:block;text-decoration:none}
 
 <header class="hero" id="top">
   <div class="hero-left">
-    <h1>Putting knowledge &amp; experience to work for the city</h1>
+    <h1>Solving Problems, Serving Neighbors</h1>
     <a class="btn" href="#get-involved">Get Involved</a>
   </div>
   <div class="hero-right" role="img" aria-label="Cheryl Parker in Del Rey Oaks"></div>
