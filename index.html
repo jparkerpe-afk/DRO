@@ -232,6 +232,12 @@ footer .social a:hover{opacity:1}
 .wform input,.wform select,.wform textarea{width:100%;padding:10px 12px;border:1px solid #cfd5df;border-radius:3px;
   font-family:inherit;font-size:15px;margin-bottom:15px;background:#fff}
 .wform .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.wform fieldset.reside{border:none;padding:0;margin:0 0 15px}
+.wform fieldset.reside legend{font-family:'Montserrat';font-weight:700;font-size:12px;letter-spacing:.08em;
+  text-transform:uppercase;color:#5a616f;margin-bottom:8px;padding:0}
+.wform .radio{display:flex;align-items:center;gap:8px;font-size:15.5px;font-weight:600;text-transform:none;
+  letter-spacing:normal;color:#3c4250;margin-bottom:8px;cursor:pointer}
+.wform .radio input{width:auto;margin:0;padding:0;accent-color:var(--rust)}
 /* .fmsg removed — the volunteer form now uses the same .msg / .msg.ok / .msg.err
    classes as the live site's contact form, so both share one proven style. */
 .amounts{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:22px}
@@ -441,7 +447,7 @@ a.amt{display:block;text-decoration:none}
 <section class="involve" id="get-involved">
   <div class="wrap">
     <h2 class="big">Get Involved</h2>
-    <p class="lede">Four ways to help, listed easiest first. The most valuable thing you can
+    <p class="lede">Five ways to help, listed easiest first. The most valuable thing you can
     do for this campaign doesn't cost anything.</p>
 
     <div class="steps">
@@ -515,6 +521,31 @@ a.amt{display:block;text-decoration:none}
 
       <div class="step">
         <div class="step-n"><span>4</span></div>
+        <div class="step-b">
+          <h3>Endorse Cheryl<span class="effort">10 seconds</span></h3>
+          <p>In a race this small, a visible list of neighbors standing behind Cheryl
+          matters. Add your name to show your support.</p>
+
+          <form class="wform" id="endorseForm">
+            <label for="efn">Your name</label>
+            <input id="efn" type="text" required>
+
+            <fieldset class="reside">
+              <legend>Where do you live?</legend>
+              <label class="radio"><input type="radio" name="ereside" value="Del Rey Oaks" checked> Del Rey Oaks</label>
+              <label class="radio"><input type="radio" name="ereside" value="Other"> Other</label>
+            </fieldset>
+
+            <input type="text" id="egotcha" name="_gotcha" tabindex="-1" autocomplete="off"
+                   aria-hidden="true" style="display:none">
+            <button class="btn" type="submit" id="ebtn">Add my name</button>
+            <div class="msg" id="emsg"></div>
+          </form>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n"><span>5</span></div>
         <div class="step-b">
           <h3>Chip in<span class="effort">Any amount</span></h3>
           <p>And if none of the above fits your schedule &mdash; a contribution always helps,
@@ -622,6 +653,33 @@ document.getElementById('walkForm').addEventListener('submit', function(e){
   .catch(function(){msg.className='msg err';msg.style.display='block';
     msg.textContent='Something went wrong. Please email servingdro@gmail.com directly.';
     btn.disabled=false;btn.textContent='Count me in';});
+});
+
+/* Get Involved — step 4: endorsement */
+document.getElementById('endorseForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  var form=document.getElementById('endorseForm'),
+      nm=document.getElementById('efn').value.trim(),
+      reside=document.querySelector('input[name="ereside"]:checked').value,
+      pot=document.getElementById('egotcha').value,
+      msg=document.getElementById('emsg'), btn=document.getElementById('ebtn');
+  if(!nm){msg.className='msg err';msg.style.display='block';
+    msg.textContent='Please enter your name.';return;}
+  btn.disabled=true;btn.textContent='Sending…';
+  fetch('https://formspree.io/f/xeevonay',{method:'POST',headers:{'Accept':'application/json','Content-Type':'application/json'},
+    body:JSON.stringify({
+      _subject:'Endorsement — '+nm+' ('+reside+')',
+      _gotcha:pot,
+      name:nm,
+      residency:reside
+    })})
+  .then(function(r){if(r.ok){msg.className='msg ok';msg.style.display='block';
+      msg.textContent='Thanks, '+nm.split(' ')[0]+' — added.';
+      form.reset();btn.textContent='Added!';}
+    else{throw 0;}})
+  .catch(function(){msg.className='msg err';msg.style.display='block';
+    msg.textContent='Something went wrong. Please email servingdro@gmail.com directly.';
+    btn.disabled=false;btn.textContent='Add my name';});
 });
 
 </script>
