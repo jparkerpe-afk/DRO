@@ -467,6 +467,31 @@ a.amt{display:block;text-decoration:none}
       <div class="step">
         <div class="step-n"><span>2</span></div>
         <div class="step-b">
+          <h3>Endorse Cheryl<span class="effort">10 seconds</span></h3>
+          <p>In a race this small, a visible list of neighbors standing behind Cheryl
+          matters. Add your name to show your support.</p>
+
+          <form class="wform" id="endorseForm">
+            <label for="efn">Your name</label>
+            <input id="efn" type="text" required>
+
+            <fieldset class="reside">
+              <legend>Where do you live?</legend>
+              <label class="radio"><input type="radio" name="ereside" value="Del Rey Oaks" checked> Del Rey Oaks</label>
+              <label class="radio"><input type="radio" name="ereside" value="Other"> Other</label>
+            </fieldset>
+
+            <input type="text" id="egotcha" name="_gotcha" tabindex="-1" autocomplete="off"
+                   aria-hidden="true" style="display:none">
+            <button class="btn" type="submit" id="ebtn">Add my name</button>
+            <div class="msg" id="emsg"></div>
+          </form>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n"><span>3</span></div>
+        <div class="step-b">
           <h3>Talk to your neighbors<span class="effort">A conversation</span></h3>
           <p>Del Rey Oaks is small enough that word of mouth is most of the race. If you think
           Cheryl is the right choice, say so &mdash; over the fence, at the park, in line
@@ -479,7 +504,7 @@ a.amt{display:block;text-decoration:none}
       </div>
 
       <div class="step">
-        <div class="step-n"><span>3</span></div>
+        <div class="step-n"><span>4</span></div>
         <div class="step-b">
           <h3>Walk a street with us<span class="effort">A Saturday morning</span></h3>
           <p>This is the one that matters most. A two-minute conversation on a doorstep does
@@ -515,31 +540,6 @@ a.amt{display:block;text-decoration:none}
                    aria-hidden="true" style="display:none">
             <button class="btn" type="submit" id="wbtn">Count me in</button>
             <div class="msg" id="wmsg"></div>
-          </form>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-n"><span>4</span></div>
-        <div class="step-b">
-          <h3>Endorse Cheryl<span class="effort">10 seconds</span></h3>
-          <p>In a race this small, a visible list of neighbors standing behind Cheryl
-          matters. Add your name to show your support.</p>
-
-          <form class="wform" id="endorseForm">
-            <label for="efn">Your name</label>
-            <input id="efn" type="text" required>
-
-            <fieldset class="reside">
-              <legend>Where do you live?</legend>
-              <label class="radio"><input type="radio" name="ereside" value="Del Rey Oaks" checked> Del Rey Oaks</label>
-              <label class="radio"><input type="radio" name="ereside" value="Other"> Other</label>
-            </fieldset>
-
-            <input type="text" id="egotcha" name="_gotcha" tabindex="-1" autocomplete="off"
-                   aria-hidden="true" style="display:none">
-            <button class="btn" type="submit" id="ebtn">Add my name</button>
-            <div class="msg" id="emsg"></div>
           </form>
         </div>
       </div>
@@ -610,7 +610,7 @@ document.getElementById('yr').textContent = new Date().getFullYear();
     if(e.target.tagName==='A'){links.classList.remove('open');toggle.setAttribute('aria-expanded','false');}
   });
 })();
-/* Get Involved — step 2: copy campaign link */
+/* Get Involved — step 3: copy campaign link */
 (function(){
   var copyBtn = document.getElementById('copyLink');
   if (!copyBtn) return;
@@ -624,7 +624,7 @@ document.getElementById('yr').textContent = new Date().getFullYear();
   });
 })();
 
-/* Get Involved — step 3: volunteer signup */
+/* Get Involved — step 4: volunteer signup */
 document.getElementById('walkForm').addEventListener('submit', function(e){
   e.preventDefault();
   var form=document.getElementById('walkForm'),
@@ -655,7 +655,7 @@ document.getElementById('walkForm').addEventListener('submit', function(e){
     btn.disabled=false;btn.textContent='Count me in';});
 });
 
-/* Get Involved — step 4: endorsement */
+/* Get Involved — step 2: endorsement */
 document.getElementById('endorseForm').addEventListener('submit', function(e){
   e.preventDefault();
   var form=document.getElementById('endorseForm'),
