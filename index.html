@@ -69,7 +69,7 @@ a{color:var(--rust)}
    markup, then reset the three offsets it shifts:
        .nav          top:44px  ->  top:0
        .hero         margin-top:110px -> 66px   (both desktop and the 800px block)
-       .nav ul       top:102px ->  top:58px     (inside the 860px block)
+       .nav ul       top:102px ->  top:58px     (inside the 960px block)
    Also remove the event section in /events/index.html.
    Fixed height at every width so those offsets stay a constant; the text has a
    short variant below 600px rather than wrapping, which would change the height.
@@ -94,7 +94,7 @@ a{color:var(--rust)}
 body.no-banner .nav{top:0}
 body.no-banner .hero{margin-top:66px}
 @media(max-width:800px){body.no-banner .hero{margin-top:66px}}
-@media(max-width:860px){body.no-banner .nav ul{top:58px}}
+@media(max-width:960px){body.no-banner .nav ul{top:58px}}
 
 /* nav */
 .nav{position:fixed;top:44px;left:0;right:0;z-index:50;background:rgba(255,255,255,.96);box-shadow:0 1px 8px rgba(0,0,0,.12);display:flex;align-items:center;justify-content:space-between;padding:12px 4%;white-space:nowrap}
@@ -112,7 +112,9 @@ body.no-banner .hero{margin-top:66px}
 .nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
 .nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
 .nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
-@media(max-width:860px){
+/* Breakpoint raised 860->960 on 2026-09-01: 5 nav items (added Endorsements)
+   need more room before the desktop layout pinches brand text against the links. */
+@media(max-width:960px){
   .brand-lines{flex-direction:column;align-items:center;gap:0;white-space:normal;line-height:1.22}
   .brand-logo{height:32px}
   .brand-line1{font-size:14px}
@@ -302,6 +304,7 @@ a.amt{display:block;text-decoration:none}
   <ul id="navLinks">
     <li><a href="#meet">Meet Cheryl</a></li>
     <li><a href="#issues">Issues</a></li>
+    <li><a href="/endorsements/">Endorsements</a></li>
     <li><a href="#get-involved">Get Involved</a></li>
     <li><a href="https://www.facebook.com/profile.php?id=61591957654921" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">

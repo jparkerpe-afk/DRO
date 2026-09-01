@@ -51,7 +51,8 @@ a{color:var(--rust)}
 .nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
 .nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
 .nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
-@media(max-width:860px){
+/* Breakpoint raised 860->960 on 2026-09-01 — keep in sync with index.html. */
+@media(max-width:960px){
   .brand-lines{flex-direction:column;align-items:center;gap:0;white-space:normal;line-height:1.22}
   .brand-logo{height:32px}
   .brand-line1{font-size:14px}
@@ -124,6 +125,7 @@ footer p{font-size:13.5px;opacity:.85;margin-top:6px}
   <ul id="navLinks">
     <li><a href="/#meet">Meet Cheryl</a></li>
     <li><a href="/#issues">Issues</a></li>
+    <li><a href="/endorsements/">Endorsements</a></li>
     <li><a href="/#get-involved">Get Involved</a></li>
     <li><a href="https://www.facebook.com/profile.php?id=61591957654921" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
