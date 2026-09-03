@@ -144,7 +144,7 @@ footer p{font-size:13.5px;opacity:.85;margin-top:6px}
 </header>
 
 <!-- ============================================================
-     EVENT — Aug 30, 2026. To take this down after the event,
+     EVENT — Sep 26, 2026. To take this down after the event,
      delete this <section> and restore the "no events" block below it.
      The homepage banner is a separate block in index.html, marked
      ANNOUNCEMENT BANNER — remove that at the same time.
@@ -152,15 +152,15 @@ footer p{font-size:13.5px;opacity:.85;margin-top:6px}
 <section class="blk">
   <div class="wrap">
     <div class="event">
-      <div class="when">Sunday, August 30</div>
-      <div class="time">3:00 pm</div>
+      <div class="when">Saturday, September 26</div>
+      <div class="time">2:00 &ndash; 4:00 pm</div>
 
-      <div class="where"><strong>A private home in Del Rey Oaks.</strong>
+      <div class="where"><strong>A private home on the north side of Del Rey Oaks.</strong>
         The address goes out by email when you RSVP.</div>
 
-      <p class="desc">An informal meet and greet, and a chance to have a real conversation with
-      Cheryl and get to know her. Bring your questions about the issues facing Del Rey Oaks,
-      or just come say hello and meet some neighbors.</p>
+      <p class="desc">This is Cheryl's second meet and greet of the campaign &mdash; an informal
+      chance to have a real conversation with her and get to know her. Bring your questions
+      about the issues facing Del Rey Oaks, or just come say hello and meet some neighbors.</p>
 
       <form class="rform" id="rsvpForm">
         <div class="two">
@@ -236,9 +236,9 @@ document.getElementById('yr').textContent = new Date().getFullYear();
     btn.disabled=true;btn.textContent='Sending…';
     fetch('https://formspree.io/f/xeevonay',{method:'POST',headers:{'Accept':'application/json','Content-Type':'application/json'},
       body:JSON.stringify({
-        _subject:'RSVP — Aug 30 meet and greet — '+fn+' '+ln+' ('+ct+')',
+        _subject:'RSVP — Sep 26 meet and greet — '+fn+' '+ln+' ('+ct+')',
         _gotcha:pot,
-        event:'Meet and greet — Sunday, August 30, 3:00 pm',
+        event:'Meet and greet — Saturday, September 26, 2:00-4:00 pm',
         name:fn+' '+ln,
         email:em,
         phone:ph||'(not given)',
@@ -246,7 +246,7 @@ document.getElementById('yr').textContent = new Date().getFullYear();
         note:note||'(none)'
       })})
     .then(function(r){if(r.ok){msg.className='msg ok';msg.style.display='block';
-        msg.textContent="You're on the list — we'll email you the address before Sunday.";
+        msg.textContent="You're on the list — we'll email you the address before Saturday.";
         form.reset();btn.textContent='Sent!';}
       else{throw 0;}})
     .catch(function(){msg.className='msg err';msg.style.display='block';

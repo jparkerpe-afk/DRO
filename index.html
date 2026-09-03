@@ -85,17 +85,6 @@ a{color:var(--rust)}
 .annc .short{display:none}
 @media(max-width:600px){.annc .full{display:none}.annc .short{display:inline}}
 
-/* ---- Banner TEMPORARILY off (added 2026-08-28) ----
-   Meet & Greet passed; next event not announced yet. The banner markup/CSS above
-   is untouched — just commented out in <body> — so bringing it back for the next
-   event is: edit the date/text/href in that commented <a class="annc"> block,
-   uncomment it, and delete this override block + the "no-banner" class on <body>.
-   These three offsets are exactly what the permanent-removal note above prescribes. */
-body.no-banner .nav{top:0}
-body.no-banner .hero{margin-top:66px}
-@media(max-width:800px){body.no-banner .hero{margin-top:66px}}
-@media(max-width:960px){body.no-banner .nav ul{top:58px}}
-
 /* nav */
 .nav{position:fixed;top:44px;left:0;right:0;z-index:50;background:rgba(255,255,255,.96);box-shadow:0 1px 8px rgba(0,0,0,.12);display:flex;align-items:center;justify-content:space-between;padding:12px 4%;white-space:nowrap}
 .nav .brand{display:flex;align-items:center;gap:clamp(6px,1vw,10px);font-family:'Montserrat';font-weight:800;text-decoration:none;letter-spacing:.03em;min-width:0}
@@ -276,18 +265,14 @@ a.amt{display:block;text-decoration:none}
 
 </style>
 </head>
-<body class="no-banner">
+<body>
 
-<!-- ANNOUNCEMENT BANNER — off for now (event passed). To bring back for the next
-     event: update the date/text/href below, uncomment, and remove "no-banner"
-     from <body> above (see the CSS override note near the .annc rules). -->
-<!--
+<!-- ANNOUNCEMENT BANNER — second Meet & Greet, Sep 26 2026. -->
 <a class="annc" href="/events/">
-  <b class="full">Meet &amp; Greet &mdash; Sunday, August 30 at 3:00 pm &mdash; RSVP</b>
-  <b class="short">Meet &amp; Greet &mdash; Sun Aug 30, 3 pm &mdash; RSVP</b>
+  <b class="full">2nd Meet &amp; Greet &mdash; Saturday, Sep 26, 2&ndash;4 pm &mdash; RSVP</b>
+  <b class="short">2nd Meet &amp; Greet &mdash; Sep 26, 2&ndash;4 pm &mdash; RSVP</b>
   <span class="arw" aria-hidden="true">&rarr;</span>
 </a>
--->
 
 <nav class="nav">
   <a class="brand" href="#top">
